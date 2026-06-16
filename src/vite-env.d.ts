@@ -1,0 +1,22 @@
+/// <reference types="vite/client" />
+
+declare module "*.glb" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.glb?url" {
+  const src: string;
+  export default src;
+}
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      meshLineGeometry: any;
+      meshLineMaterial: any;
+    }
+  }
+}
+
+export {};
