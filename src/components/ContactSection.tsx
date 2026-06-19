@@ -86,17 +86,15 @@ export default function ContactSection() {
     return (
         <section
             id="contact"
-            className="relative w-full bg-[#0a0a0a] text-[#e5e7eb] py-24 px-6 md:px-12 lg:px-20 border-t border-zinc-900/60"
+            className="relative w-full bg-[#0a0a0a] text-[#e5e7eb] py-24 px-6 md:px-12 lg:px-20 border-t border-zinc-800/40"
         >
-            {/* Subtle radial glow accent in top-center */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#3B82F6]/4 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto flex flex-col gap-16">
                 {/* Section Header */}
                 <AnimatedContent direction="vertical" distance={30} delay={0.1}>
                     <div className="flex flex-col gap-2 max-w-xl">
-                        <span className="text-xs font-semibold tracking-wider uppercase text-[#3B82F6]">
-                            Get In Touch
+                        <span className="font-mono text-xs font-semibold tracking-wider uppercase text-[#22c55e] flex items-center gap-1.5">
+                            <span className="text-zinc-600">~/</span>contact
                         </span>
                         <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                             Let's Work Together

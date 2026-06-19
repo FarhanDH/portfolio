@@ -130,6 +130,13 @@
     html {
         scroll-behavior: smooth;
     }
+    button,
+    a {
+        cursor: pointer;
+    }
+    button:disabled {
+        cursor: not-allowed;
+    }
 }
 
 /* Custom modern scrollbar */
