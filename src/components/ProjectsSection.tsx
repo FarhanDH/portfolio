@@ -145,7 +145,7 @@ function ProjectCard({
                             {project.tech.map((t) => (
                                 <span
                                     key={t}
-                                    className="font-mono px-2 py-1 rounded text-[11px] bg-zinc-900 border border-zinc-800 text-zinc-500 group-hover:text-zinc-400 group-hover:border-zinc-700 transition-colors duration-200"
+                                    className="font-mono px-2 py-1 rounded text-[11px] bg-zinc-900 border border-zinc-800 text-zinc-500 group-hover:text-zinc-300 group-hover:border-zinc-700 transition-colors duration-200"
                                 >
                                     {t}
                                 </span>
@@ -165,7 +165,7 @@ function ProjectCard({
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={`${project.title} source code`}
-                                        className="flex justify-end text-end items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs text-zinc-500 hover:text-zinc-200 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
+                                        className="flex justify-end text-end items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs text-zinc-400 hover:text-zinc-200 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
                                     >
                                         <Github size={12} />
                                         source
@@ -183,7 +183,7 @@ function ProjectCard({
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={`${project.title} live demo`}
-                                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs text-zinc-500 hover:text-zinc-200 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
+                                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs text-zinc-300 hover:text-zinc-200 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
                                     >
                                         <ExternalLink size={12} />
                                         live
