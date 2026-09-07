@@ -11,7 +11,9 @@ import { useState } from "react";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || "https://formspree.io/f/YOUR_FORM_ID";
+const FORMSPREE_ENDPOINT =
+    import.meta.env.VITE_FORMSPREE_ENDPOINT ||
+    "https://formspree.io/f/YOUR_FORM_ID";
 
 export default function ContactSection() {
     const [formStatus, setFormStatus] = useState<FormStatus>("idle");
@@ -25,28 +27,28 @@ export default function ContactSection() {
         {
             icon: <Mail size={20} />,
             label: "Email",
-            value: "farhan@example.com",
-            href: "mailto:farhan@example.com",
+            value: "farhandwihartanto@gmail.com",
+            href: "mailto:farhandwihartanto@gmail.com",
             description: "Drop me a direct message",
         },
         {
             icon: <Github size={20} />,
             label: "GitHub",
-            value: "github.com/farhan",
-            href: "https://github.com/farhan",
+            value: "github.com/farhandh",
+            href: "https://github.com/farhandh",
             description: "Check out my open source work",
         },
         {
             icon: <Linkedin size={20} />,
             label: "LinkedIn",
-            value: "linkedin.com/in/farhan",
-            href: "https://linkedin.com/in/farhan",
+            value: "linkedin.com/in/farhan-dwi-hartanto-8074ba292",
+            href: "https://www.linkedin.com/in/farhan-dwi-hartanto-8074ba292/",
             description: "Let's connect professionally",
         },
         {
             icon: <MapPin size={20} />,
             label: "Location",
-            value: "Samarinda, East Kalimantan",
+            value: "Samarinda, East Kalimantan, Indonesia",
             href: null,
             description: "Open to remote opportunities",
         },
@@ -88,7 +90,6 @@ export default function ContactSection() {
             id="contact"
             className="relative w-full bg-[#0a0a0a] text-[#e5e7eb] py-24 px-6 md:px-12 lg:px-20 border-t border-zinc-800/40"
         >
-
             <div className="max-w-7xl mx-auto flex flex-col gap-16">
                 {/* Section Header */}
                 <AnimatedContent direction="vertical" distance={30} delay={0.1}>
@@ -115,10 +116,11 @@ export default function ContactSection() {
                             const inner = (
                                 <div
                                     key={link.label}
-                                    className={`group flex items-start gap-4 p-5 rounded-xl border transition-all duration-300 ${link.href
+                                    className={`group flex items-start gap-4 p-5 rounded-xl border transition-all duration-300 ${
+                                        link.href
                                             ? "bg-zinc-900/30 border-zinc-900 hover:border-zinc-700 hover:bg-zinc-900/60 cursor-pointer"
                                             : "bg-zinc-900/20 border-zinc-900/60 cursor-default"
-                                        }`}
+                                    }`}
                                 >
                                     <div className="mt-0.5 flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-zinc-900 border border-zinc-800 text-gray-400 group-hover:text-white group-hover:border-zinc-700 transition-colors duration-300">
                                         {link.icon}
@@ -339,7 +341,7 @@ export default function ContactSection() {
                         </p>
                         <div className="flex items-center gap-5">
                             <a
-                                href="https://github.com/farhan"
+                                href="https://github.com/farhandh"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-600 hover:text-gray-300 transition-colors duration-300"
@@ -348,7 +350,7 @@ export default function ContactSection() {
                                 <Github size={18} />
                             </a>
                             <a
-                                href="https://linkedin.com/in/farhan"
+                                href="https://www.linkedin.com/in/farhan-dwi-hartanto-8074ba292/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-600 hover:text-gray-300 transition-colors duration-300"
@@ -357,7 +359,7 @@ export default function ContactSection() {
                                 <Linkedin size={18} />
                             </a>
                             <a
-                                href="mailto:farhan@example.com"
+                                href="mailto:farhandwihartanto@gmail.com"
                                 className="text-gray-600 hover:text-gray-300 transition-colors duration-300"
                                 aria-label="Email"
                             >
