@@ -2,12 +2,14 @@ import TextType from "./TextType";
 import Beams from "./Beams";
 import Lanyard from "./Lanyard";
 import { Button } from "./ui/button";
-import farhanImg from "../assets/farhan.jpg";
+import farhanImg from "../assets/farhan.png";
 import meletImg from "../assets/melet gendeng.jpg";
 
 export default function HeroSection() {
     const handleScrollToWork = () => {
-        document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+        document
+            .getElementById("projects")
+            ?.scrollIntoView({ behavior: "smooth" });
     };
 
     return (
@@ -37,7 +39,6 @@ export default function HeroSection() {
             <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
                 {/* Left Column: Terminal UI */}
                 <div className="lg:col-span-7 flex flex-col items-start text-left gap-5 order-1">
-
                     {/* Terminal window chrome */}
                     <div className="w-full rounded-xl border border-zinc-800 bg-zinc-950/80 backdrop-blur-sm overflow-hidden shadow-2xl shadow-black/60">
                         {/* Title bar */}
@@ -54,11 +55,21 @@ export default function HeroSection() {
                         <div className="p-5 sm:p-6 flex flex-col gap-3 font-mono text-sm">
                             {/* Line 1: whoami */}
                             <div className="flex items-center gap-2">
-                                <span className="text-[#22c55e] text-xs select-none">farhan@cloud-dev</span>
-                                <span className="text-zinc-600 text-xs select-none">:</span>
-                                <span className="text-[#3B82F6] text-xs select-none">~</span>
-                                <span className="text-zinc-500 text-xs select-none">$</span>
-                                <span className="text-zinc-300 text-xs">whoami</span>
+                                <span className="text-[#22c55e] text-xs select-none">
+                                    farhan@cloud-dev
+                                </span>
+                                <span className="text-zinc-600 text-xs select-none">
+                                    :
+                                </span>
+                                <span className="text-[#3B82F6] text-xs select-none">
+                                    ~
+                                </span>
+                                <span className="text-zinc-500 text-xs select-none">
+                                    $
+                                </span>
+                                <span className="text-zinc-300 text-xs">
+                                    whoami
+                                </span>
                             </div>
 
                             {/* Output: big name with typing */}
@@ -66,7 +77,12 @@ export default function HeroSection() {
                                 <h1 className="flex items-baseline gap-0 flex-wrap">
                                     <TextType
                                         as="span"
-                                        text={["Hi, I'm Farhan", "Backend Developer", "Cloud Enthusiast", "API Architect"]}
+                                        text={[
+                                            "Hi, I'm Farhan",
+                                            "Backend Developer",
+                                            "Cloud Enthusiast",
+                                            "API Architect",
+                                        ]}
                                         typingSpeed={65}
                                         deletingSpeed={35}
                                         pauseDuration={2200}
@@ -75,25 +91,40 @@ export default function HeroSection() {
                                         cursorCharacter="█"
                                         cursorClassName="text-[#22c55e] animate-pulse"
                                         className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight"
-                                        textColors={["#ffffff", "#22c55e", "#3B82F6", "#a78bfa"]}
+                                        textColors={[
+                                            "#ffffff",
+                                            "#22c55e",
+                                            "#3B82F6",
+                                            "#a78bfa",
+                                        ]}
                                     />
                                 </h1>
                             </div>
 
                             {/* Line 2: cat role.txt */}
                             <div className="flex items-center gap-2 mt-1">
-                                <span className="text-[#22c55e] text-xs select-none">farhan@cloud-dev</span>
-                                <span className="text-zinc-600 text-xs select-none">:</span>
-                                <span className="text-[#3B82F6] text-xs select-none">~</span>
-                                <span className="text-zinc-500 text-xs select-none">$</span>
-                                <span className="text-zinc-300 text-xs">cat role.txt</span>
+                                <span className="text-[#22c55e] text-xs select-none">
+                                    farhan@cloud-dev
+                                </span>
+                                <span className="text-zinc-600 text-xs select-none">
+                                    :
+                                </span>
+                                <span className="text-[#3B82F6] text-xs select-none">
+                                    ~
+                                </span>
+                                <span className="text-zinc-500 text-xs select-none">
+                                    $
+                                </span>
+                                <span className="text-zinc-300 text-xs">
+                                    cat role.txt
+                                </span>
                             </div>
 
                             {/* Output: tagline */}
                             <p className="pl-2 border-l-2 border-zinc-800 text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-lg">
                                 <span className="text-[#22c55e]"># </span>
-                                Building scalable backend systems, designing robust
-                                APIs, and shipping them to the cloud.
+                                Building scalable backend systems, designing
+                                robust APIs, and shipping them to the cloud.
                                 <br />
                                 <span className="text-[#22c55e]"># </span>
                                 Focused on performance, reliability, and clean
@@ -102,10 +133,18 @@ export default function HeroSection() {
 
                             {/* Line 3: blinking prompt */}
                             <div className="flex items-center gap-2">
-                                <span className="text-[#22c55e] text-xs select-none">farhan@cloud-dev</span>
-                                <span className="text-zinc-600 text-xs select-none">:</span>
-                                <span className="text-[#3B82F6] text-xs select-none">~</span>
-                                <span className="text-zinc-500 text-xs select-none">$</span>
+                                <span className="text-[#22c55e] text-xs select-none">
+                                    farhan@cloud-dev
+                                </span>
+                                <span className="text-zinc-600 text-xs select-none">
+                                    :
+                                </span>
+                                <span className="text-[#3B82F6] text-xs select-none">
+                                    ~
+                                </span>
+                                <span className="text-zinc-500 text-xs select-none">
+                                    $
+                                </span>
                                 <span className="w-2 h-4 bg-[#22c55e] animate-pulse inline-block align-middle opacity-80" />
                             </div>
                         </div>
@@ -117,7 +156,8 @@ export default function HeroSection() {
                             onClick={handleScrollToWork}
                             className="w-full sm:w-auto px-7 py-6 text-sm font-mono font-medium text-[#22c55e] bg-zinc-950 hover:bg-zinc-900 border border-[#22c55e]/30 hover:border-[#22c55e]/60 rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(34,197,94,0.15)] cursor-pointer"
                         >
-                            <span className="text-zinc-500 mr-1">./</span>view-projects.sh
+                            <span className="text-zinc-500 mr-1">./</span>
+                            view-projects.sh
                         </Button>
                         <button
                             onClick={() =>
@@ -127,7 +167,8 @@ export default function HeroSection() {
                             }
                             className="w-full sm:w-auto px-7 py-6 text-sm font-mono font-medium text-zinc-400 hover:text-white bg-transparent border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900/40 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer"
                         >
-                            <span className="text-zinc-600 mr-1">$</span>contact --me
+                            <span className="text-zinc-600 mr-1">$</span>contact
+                            --me
                         </button>
                     </div>
 
