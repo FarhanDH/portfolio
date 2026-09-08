@@ -9,6 +9,8 @@ const navLinks = [
     { label: "Contact", href: "#contact" },
 ];
 
+const RESUME_URL = import.meta.env.VITE_RESUME_URL as string;
+
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState("");
@@ -32,7 +34,7 @@ export default function Navbar() {
                     }
                 });
             },
-            { rootMargin: "-40% 0px -55% 0px" }
+            { rootMargin: "-40% 0px -55% 0px" },
         );
         sections.forEach((s) => observer.observe(s));
         return () => observer.disconnect();
@@ -41,7 +43,9 @@ export default function Navbar() {
     // Lock body scroll when mobile menu open
     useEffect(() => {
         document.body.style.overflow = mobileOpen ? "hidden" : "";
-        return () => { document.body.style.overflow = ""; };
+        return () => {
+            document.body.style.overflow = "";
+        };
     }, [mobileOpen]);
 
     const scrollTo = (href: string) => {
@@ -62,10 +66,11 @@ export default function Navbar() {
                 }`}
             >
                 <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 h-14 flex items-center justify-between gap-8">
-
                     {/* Brand */}
                     <button
-                        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                        onClick={() =>
+                            window.scrollTo({ top: 0, behavior: "smooth" })
+                        }
                         className="flex items-center gap-1 font-mono text-sm text-zinc-300 hover:text-white transition-colors duration-200 flex-shrink-0"
                         aria-label="Scroll to top"
                     >
@@ -94,7 +99,9 @@ export default function Navbar() {
                                     {/* Active underline */}
                                     <span
                                         className={`absolute bottom-0.5 left-3.5 right-3.5 h-px rounded-full bg-[#22c55e] transition-all duration-300 ${
-                                            isActive ? "opacity-100" : "opacity-0"
+                                            isActive
+                                                ? "opacity-100"
+                                                : "opacity-0"
                                         }`}
                                     />
                                 </button>
@@ -105,7 +112,7 @@ export default function Navbar() {
                     {/* Desktop CTA */}
                     <div className="hidden md:flex items-center gap-3 flex-shrink-0">
                         <a
-                            href="/resume.pdf"
+                            href={RESUME_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-mono text-xs px-3.5 py-1.5 rounded-lg border border-zinc-800 text-zinc-500 hover:text-zinc-200 hover:border-zinc-700 bg-zinc-900/50 transition-all duration-200"
@@ -128,7 +135,9 @@ export default function Navbar() {
             {/* ── Mobile full-screen overlay ── */}
             <div
                 className={`fixed inset-0 z-[60] md:hidden transition-all duration-300 ${
-                    mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                    mobileOpen
+                        ? "opacity-100 pointer-events-auto"
+                        : "opacity-0 pointer-events-none"
                 }`}
             >
                 {/* Backdrop */}
@@ -176,10 +185,14 @@ export default function Navbar() {
                                     {/* Active indicator dot */}
                                     <span
                                         className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-200 ${
-                                            isActive ? "bg-[#22c55e]" : "bg-zinc-800"
+                                            isActive
+                                                ? "bg-[#22c55e]"
+                                                : "bg-zinc-800"
                                         }`}
                                     />
-                                    <span className="font-mono text-sm">{link.label}</span>
+                                    <span className="font-mono text-sm">
+                                        {link.label}
+                                    </span>
                                 </button>
                             );
                         })}
@@ -188,7 +201,7 @@ export default function Navbar() {
                     {/* Panel footer */}
                     <div className="px-4 pb-6 border-t border-zinc-800/60 pt-4">
                         <a
-                            href="/resume.pdf"
+                            href={RESUME_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-center gap-2 w-full font-mono text-xs px-4 py-3 rounded-xl border border-zinc-800 text-zinc-500 hover:text-zinc-200 hover:border-zinc-700 bg-zinc-900/50 transition-all duration-200"
