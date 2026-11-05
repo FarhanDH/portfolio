@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" fill="none">
+  <defs>
+    <linearGradient id="bgSilani" x1="0" y1="0" x2="1200" y2="750" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="areaSilani" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#bgSilani)"/>
+
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="220" height="750" fill="#0b1120"/>
+  <line x1="220" y1="0" x2="220" y2="750" stroke="#334155" stroke-width="1.5"/>
+
+  <rect x="28" y="28" width="36" height="36" rx="10" fill="#f8fafc"/>
+  <text x="46" y="52" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="800" fill="#0f172a" text-anchor="middle">L</text>
+  <text x="78" y="47" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#f8fafc">Silani API</text>
+  <text x="78" y="63" font-family="JetBrains Mono, monospace" font-size="10" fill="#94a3b8">AGRI-TECH AI</text>
+
+  <rect x="20" y="96" width="180" height="42" rx="10" fill="#1e293b" stroke="#475569"/>
+  <circle cx="44" cy="117" r="5" fill="#10b981"/>
+  <text x="62" y="122" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">Field Telemetry</text>
+  <text x="62" y="172" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">Lani AI Assistant</text>
+  <text x="62" y="216" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">Harvest Reminders</text>
+  <text x="62" y="260" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">AWS S3 Media</text>
+  <text x="62" y="304" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">Google OAuth 2.0</text>
+
+  <!-- Header -->
+  <rect x="221" y="0" width="979" height="76" fill="#0f172a"/>
+  <line x1="220" y1="76" x2="1200" y2="76" stroke="#334155" stroke-width="1.5"/>
+  <text x="260" y="45" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">Smart Field Management &amp; AI Agronomy Hub</text>
+  <rect x="940" y="22" width="220" height="32" rx="16" fill="#1e293b" stroke="#334155"/>
+  <circle cx="962" cy="38" r="5" fill="#10b981"/>
+  <text x="976" y="42" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="#f8fafc">Groq + Gemini Connected</text>
+
+  <!-- 3 Stat Cards -->
+  <rect x="260" y="104" width="286" height="106" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="284" y="134" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">MONITORED PARCELS</text>
+  <text x="284" y="168" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="#f8fafc">18 Active Fields</text>
+  <text x="284" y="192" font-family="JetBrains Mono, monospace" font-size="11" fill="#10b981">24.6 Hectares Total Area</text>
+
+  <rect x="566" y="104" width="286" height="106" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="590" y="134" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">LANI AI CONSULTATIONS</text>
+  <text x="590" y="168" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="#f8fafc">1,420 Queries</text>
+  <text x="590" y="192" font-family="JetBrains Mono, monospace" font-size="11" fill="#cbd5e1">Avg Latency 380ms (Groq LLM)</text>
+
+  <rect x="872" y="104" width="288" height="106" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="896" y="134" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">AWS S3 CROP MEDIA</text>
+  <text x="896" y="168" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="#f8fafc">3.8 GB Stored</text>
+  <text x="896" y="192" font-family="JetBrains Mono, monospace" font-size="11" fill="#10b981">Signed Bucket Uploads</text>
+
+  <!-- Left Panel: Lani AI Chat Preview -->
+  <rect x="260" y="234" width="540" height="480" rx="16" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="288" y="270" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#f8fafc">Lani AI Agronomy Assistant (Groq &amp; Gemini)</text>
+  <line x1="288" y1="288" x2="772" y2="288" stroke="#334155"/>
+
+  <!-- User Prompt -->
+  <rect x="360" y="312" width="412" height="68" rx="12" fill="#0f172a" stroke="#334155"/>
+  <text x="380" y="338" font-family="JetBrains Mono, monospace" font-size="10" fill="#94a3b8">FARMER · PARCEL #04 (PADI CIHERANG)</text>
+  <text x="380" y="360" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#f8fafc">"Leaves show mild yellowing at day 35. What NPK ratio?"</text>
+
+  <!-- AI Response -->
+  <rect x="288" y="400" width="484" height="196" rx="12" fill="#263349" stroke="#475569"/>
+  <text x="312" y="428" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#10b981">LANI AI · GEMINI + GROQ ENGINE</text>
+  <text x="312" y="456" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#f8fafc">1. Apply Urea + NPK Phonska (15-15-15) at 150 kg/ha.</text>
+  <text x="312" y="482" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#f8fafc">2. Maintain standing water depth at 3-5 cm for 4 days.</text>
+  <text x="312" y="508" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#f8fafc">3. Scheduled automated reminder for second top-dressing</text>
+  <text x="312" y="530" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#f8fafc">   on Day 49 via Silani Notification Worker.</text>
+  <rect x="312" y="552" width="240" height="26" rx="8" fill="#0f172a" stroke="#334155"/>
+  <text x="326" y="569" font-family="JetBrains Mono, monospace" font-size="10" fill="#cbd5e1">Reminder Scheduled: +14 Days</text>
+
+  <!-- Input Bar -->
+  <rect x="288" y="636" width="484" height="48" rx="10" fill="#0f172a" stroke="#334155"/>
+  <text x="310" y="665" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#64748b">Ask Lani AI about soil, pests, or harvest schedules...</text>
+
+  <!-- Right Panel: Yield & Schedule -->
+  <rect x="820" y="234" width="340" height="480" rx="16" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="848" y="270" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#f8fafc">Crop Growth &amp; Reminders</text>
+  <text x="848" y="290" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">Automated Cron Alerts</text>
+
+  <path d="M 848,430 Q 900,380 950,390 T 1050,340 L 1132,320 L 1132,460 L 848,460 Z" fill="url(#areaSilani)"/>
+  <path d="M 848,430 Q 900,380 950,390 T 1050,340 L 1132,320" fill="none" stroke="#f8fafc" stroke-width="3" stroke-linecap="round"/>
+
+  <rect x="848" y="492" width="284" height="60" rx="10" fill="#0f172a" stroke="#334155"/>
+  <text x="866" y="518" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">Fertilizer Phase 2</text>
+  <text x="866" y="538" font-family="JetBrains Mono, monospace" font-size="11" fill="#10b981">Due in 3 Days · Push Active</text>
+
+  <rect x="848" y="568" width="284" height="60" rx="10" fill="#0f172a" stroke="#334155"/>
+  <text x="866" y="594" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">Pesticide Preventive Spray</text>
+  <text x="866" y="614" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">Due in 9 Days · Queued</text>
+
+  <rect x="848" y="644" width="284" height="50" rx="10" fill="#0f172a" stroke="#334155"/>
+  <text x="866" y="674" font-family="JetBrains Mono, monospace" font-size="11" fill="#f8fafc">Hackathon KMIPN VI Finalist</text>
+</svg>

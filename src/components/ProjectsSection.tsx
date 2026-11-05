@@ -1,393 +1,319 @@
-import { useEffect, useRef, useState } from "react";
-import { Github, ExternalLink, Terminal, ChevronDown } from "lucide-react";
-import AnimatedContent from "./AnimatedContent";
-import SpotlightCard from "./SpotlightCard";
-import Magnet from "./Magnet";
+import { useEffect, useState } from "react";
+import { Github, ExternalLink, ChevronDown, ArrowRight } from "lucide-react";
+import {
+  fetchProjectsData,
+  type ProjectDTO,
+  toProjectSlug,
+} from "../data/projectsData";
 
-// ── API response shape (snake_case from Go API) ───────────────────────────────
-interface ProjectDTO {
-    id: string;
-    display_order?: number;
-    title: string;
-    description: string;
-    long_description: string;
-    tech: string[];
-    github_url?: string | null;
-    live_url?: string | null;
-    featured?: boolean;
-}
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL as string;
 const INITIAL_DISPLAY_COUNT = 3;
 
-// ─── Subtle tilt on hover ─────────────────────────────────────────────────────
-function useTilt() {
-    const cardRef = useRef<HTMLDivElement>(null);
-    const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const pctX = (e.clientX - rect.left) / rect.width;
-        const pctY = (e.clientY - rect.top) / rect.height;
-        setTilt({ x: (pctY - 0.5) * -6, y: (pctX - 0.5) * 6 });
-    };
-
-    const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
-
-    return { cardRef, tilt, handleMouseMove, handleMouseLeave };
+interface ProjectsSectionProps {
+  onOpenProject?: (slug: string) => void;
 }
 
-// ─── Skeleton Card for loading state ──────────────────────────────────────────
 function ProjectSkeleton() {
-    return (
-        <div className="h-full rounded-xl border border-zinc-800/70 bg-zinc-950 p-5 flex flex-col gap-4 animate-pulse">
-            <div className="flex items-start justify-between">
-                <div className="h-8 w-10 bg-zinc-850 rounded" />
-                <div className="h-4 w-16 bg-zinc-900 rounded" />
-            </div>
-            <div className="flex flex-col gap-2">
-                <div className="h-5 bg-zinc-800 rounded w-2/3" />
-                <div className="h-3 bg-zinc-900 rounded w-1/2" />
-            </div>
-            <div className="space-y-2 flex-1">
-                <div className="h-3 bg-zinc-900 rounded w-full" />
-                <div className="h-3 bg-zinc-900 rounded w-5/6" />
-                <div className="h-3 bg-zinc-900 rounded w-4/6" />
-            </div>
-            <div className="flex flex-wrap gap-1.5 pt-2">
-                {[60, 50, 70, 55].map((w, i) => (
-                    <div
-                        key={i}
-                        className="h-5 bg-zinc-900 rounded"
-                        style={{ width: w }}
-                    />
-                ))}
-            </div>
-            <div className="flex justify-end gap-2 pt-3 border-t border-zinc-800/50">
-                <div className="h-7 w-20 bg-zinc-900 rounded" />
-            </div>
+  return (
+    <div className="flex flex-col lg:flex-row items-stretch gap-6 lg:gap-8 rounded-2xl border border-border bg-card p-5 sm:p-7 animate-pulse">
+      <div className="w-full lg:w-[50%] h-64 sm:h-72 rounded-xl bg-secondary border border-border" />
+      <div className="flex-1 flex flex-col justify-between gap-4 py-2">
+        <div className="space-y-3">
+          <div className="h-4 w-20 bg-secondary rounded" />
+          <div className="h-8 w-3/4 bg-secondary rounded" />
+          <div className="h-4 w-full bg-secondary/80 rounded" />
+          <div className="h-4 w-5/6 bg-secondary/80 rounded" />
+          <div className="flex gap-2 pt-3">
+            <div className="h-6 w-16 bg-secondary rounded" />
+            <div className="h-6 w-20 bg-secondary rounded" />
+            <div className="h-6 w-24 bg-secondary rounded" />
+          </div>
         </div>
-    );
+        <div className="flex gap-4 pt-4 border-t border-border">
+          <div className="h-9 w-32 bg-secondary rounded-xl" />
+          <div className="h-9 w-24 bg-secondary rounded-xl" />
+        </div>
+      </div>
+    </div>
+  );
 }
 
-// ─── Single Project Card ──────────────────────────────────────────────────────
-function ProjectCard({
-    project,
-    index,
-    delay,
+/**
+ * Single showcase horizontal project row/card with project preview image and "See Details" route button
+ */
+function ProjectShowcaseCard({
+  project,
+  onOpenProject,
 }: {
-    project: ProjectDTO;
-    index: number;
-    delay: number;
+  project: ProjectDTO;
+  onOpenProject?: (slug: string) => void;
 }) {
-    const { cardRef, tilt, handleMouseMove, handleMouseLeave } = useTilt();
-    const formattedNumber = String(index + 1).padStart(2, "0");
+  const [activeImageTab, setActiveImageTab] = useState<"ui" | "arch">("ui");
+  const slug = project.slug || toProjectSlug(project.title);
+  const uiImg = project.image_url || "/projects/sidingin-preview.svg";
+  const archImg =
+    project.architecture_image_url || "/projects/sidingin-arch.svg";
+  const currentImg = activeImageTab === "ui" ? uiImg : archImg;
 
-    return (
-        <AnimatedContent direction="vertical" distance={30} delay={delay}>
-            <SpotlightCard
-                className="h-full rounded-xl"
-                spotlightColor="rgba(34,197,94,0.06)"
+  const handleOpenDetail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onOpenProject) {
+      onOpenProject(slug);
+    } else {
+      window.location.href = `/projects/${slug}`;
+    }
+  };
+
+  return (
+    <article className="group flex flex-col lg:flex-row items-stretch gap-6 lg:gap-8 rounded-2xl border border-border bg-card p-5 sm:p-7 shadow-xs hover:border-foreground/40 transition-all duration-200">
+      {/* Left: Framed Browser Image Preview (1. UI Mockup | 2. Architecture) */}
+      <div className="w-full lg:w-[52%] flex-shrink-0 rounded-xl overflow-hidden border border-border bg-secondary flex flex-col shadow-xs">
+        {/* Browser Window Titlebar with 2-Image Switcher */}
+        <div className="h-9 px-3.5 bg-secondary border-b border-border flex items-center justify-between gap-2 flex-shrink-0">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/85 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/85 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/85 inline-block" />
+          </div>
+
+          {/* Toggle Pills: 1. UI Mockup | 2. Architecture */}
+          <div className="flex items-center gap-1 p-0.5 rounded-lg bg-card border border-border">
+            <button
+              type="button"
+              onClick={() => setActiveImageTab("ui")}
+              className={`px-2.5 py-0.5 rounded-md font-mono text-[10px] font-semibold transition-all cursor-pointer ${
+                activeImageTab === "ui"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-                <div
-                    ref={cardRef}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                    className="group relative h-full flex flex-col rounded-xl border border-zinc-800/70 bg-zinc-950 overflow-hidden transition-colors duration-300 hover:border-zinc-700/70"
-                    style={{
-                        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-                        transition:
-                            "transform 0.12s ease-out, border-color 0.3s ease",
-                    }}
-                >
-                    {/* Single thin top accent — green only for featured, zinc for others */}
-                    <div
-                        className={`absolute top-0 left-0 right-0 h-px transition-opacity duration-300 ${
-                            project.featured
-                                ? "bg-[#22c55e]/50 group-hover:bg-[#22c55e]/80"
-                                : "bg-zinc-700/40 group-hover:bg-zinc-600/60"
-                        }`}
-                    />
+              1 · UI Mockup
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveImageTab("arch")}
+              className={`px-2.5 py-0.5 rounded-md font-mono text-[10px] font-semibold transition-all cursor-pointer ${
+                activeImageTab === "arch"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              2 · Architecture
+            </button>
+          </div>
+        </div>
 
-                    {/* Card body */}
-                    <div className="relative flex flex-col gap-4 p-5 h-full">
-                        {/* Number + featured badge */}
-                        <div className="flex items-start justify-between">
-                            <span className="font-mono text-3xl font-black text-zinc-800 leading-none select-none group-hover:text-zinc-700 transition-colors duration-300">
-                                {formattedNumber}
-                            </span>
-                            {project.featured && (
-                                <span className="flex items-center gap-1.5 font-mono text-[10px] font-semibold tracking-widest uppercase px-2 py-1 rounded-md border border-[#22c55e]/20 text-[#22c55e]/70 bg-[#22c55e]/5">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-                                    pinned
-                                </span>
-                            )}
-                        </div>
+        {/* Project Preview Image (Clickable to Detail Route) */}
+        <a
+          href={`/projects/${slug}`}
+          onClick={handleOpenDetail}
+          aria-label={`See details for ${project.title}`}
+          className="relative flex-1 w-full min-h-[220px] sm:min-h-[260px] overflow-hidden bg-card flex items-center justify-center cursor-pointer"
+        >
+          <img
+            src={currentImg}
+            alt={`${project.title} ${activeImageTab === "ui" ? "UI mockup" : "architecture diagram"}`}
+            loading="lazy"
+            className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500"
+          />
+        </a>
+      </div>
 
-                        {/* Title + one-liner */}
-                        <div className="flex flex-col gap-1">
-                            <h3 className="text-base font-semibold text-zinc-100 tracking-tight leading-snug">
-                                {project.title}
-                            </h3>
-                            <p className="font-mono text-[11px] text-zinc-600 uppercase tracking-wider">
-                                {project.description}
-                            </p>
-                        </div>
+      {/* Right: Project Details & Action Buttons */}
+      <div className="flex-1 flex flex-col justify-between gap-5 py-1">
+        <div className="flex flex-col gap-3">
+          {/* Header Category Subtitle */}
+          <div className="flex items-center justify-between gap-2">
+            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground font-semibold">
+              PROJECTS
+            </span>
+            {project.featured && (
+              <span className="font-mono text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-secondary border border-border text-foreground">
+                Featured
+              </span>
+            )}
+          </div>
 
-                        {/* Description */}
-                        <p className="text-sm text-zinc-500 leading-relaxed flex-1">
-                            {project.long_description}
-                        </p>
+          {/* Big Bold Title */}
+          <h3 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
+            <a
+              href={`/projects/${slug}`}
+              onClick={handleOpenDetail}
+              className="hover:underline cursor-pointer"
+            >
+              {project.title}
+            </a>
+          </h3>
 
-                        {/* Tech pills — uniform, no color variation */}
-                        <div className="flex flex-wrap gap-1.5">
-                            {project.tech.map((t) => (
-                                <span
-                                    key={t}
-                                    className="font-mono px-2 py-1 rounded text-[11px] bg-zinc-900 border border-zinc-800 text-zinc-500 group-hover:text-zinc-300 group-hover:border-zinc-700 transition-colors duration-200"
-                                >
-                                    {t}
-                                </span>
-                            ))}
-                        </div>
+          {/* Summary Description */}
+          <p className="text-sm sm:text-base font-medium text-foreground leading-relaxed">
+            {project.description}
+          </p>
 
-                        {/* Actions */}
-                        <div className="flex justify-end items-center gap-2 pt-3 border-t border-zinc-800/50">
-                            {project.github_url && (
-                                <Magnet
-                                    magnetStrength={0.25}
-                                    padding={25}
-                                    className="flex-shrink-0"
-                                >
-                                    <a
-                                        href={project.github_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={`${project.title} source code`}
-                                        className="flex justify-end text-end items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs text-zinc-400 hover:text-zinc-200 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
-                                    >
-                                        <Github size={12} />
-                                        source
-                                    </a>
-                                </Magnet>
-                            )}
-                            {project.live_url && (
-                                <Magnet
-                                    magnetStrength={0.25}
-                                    padding={25}
-                                    className="flex-shrink-0"
-                                >
-                                    <a
-                                        href={project.live_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={`${project.title} live demo`}
-                                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs text-zinc-300 hover:text-zinc-200 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
-                                    >
-                                        <ExternalLink size={12} />
-                                        live
-                                    </a>
-                                </Magnet>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </SpotlightCard>
-        </AnimatedContent>
-    );
+          {/* Detailed Context */}
+          {project.long_description &&
+            project.long_description !== project.description && (
+              <p className="text-xs sm:text-[13px] text-muted-foreground leading-relaxed line-clamp-3">
+                {project.long_description}
+              </p>
+            )}
+
+          {/* Tech Stack Chips */}
+          <div className="flex flex-wrap gap-1.5 pt-2">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className="font-mono px-2.5 py-1 rounded-md text-[11px] font-medium bg-secondary border border-border text-foreground"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Action Links Row */}
+        <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-border">
+          {/* Primary: See Details route button */}
+          <a
+            href={`/projects/${slug}`}
+            onClick={handleOpenDetail}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 hover:scale-[1.02] hover:shadow-md active:scale-[0.98] transition-all duration-200 cursor-pointer shadow-2xs"
+          >
+            <span>See Details</span>
+            <ArrowRight size={14} />
+          </a>
+
+          {project.live_url && (
+            <a
+              href={project.live_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-secondary hover:bg-accent hover:border-foreground/40 hover:scale-[1.02] active:scale-[0.98] text-foreground border border-border transition-all duration-200 cursor-pointer shadow-2xs"
+            >
+              <span>Live Demo</span>
+              <ExternalLink size={13} />
+            </a>
+          )}
+
+          {project.github_url && (
+            <a
+              href={project.github_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-secondary hover:bg-accent hover:border-foreground/40 hover:scale-[1.02] active:scale-[0.98] text-foreground border border-border transition-all duration-200 cursor-pointer shadow-2xs"
+            >
+              <Github size={14} />
+              <span>GitHub</span>
+              <ExternalLink size={12} />
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
+  );
 }
 
-// ─── Projects Section ─────────────────────────────────────────────────────────
-export default function ProjectsSection() {
-    const [projects, setProjects] = useState<ProjectDTO[]>([]);
-    const [status, setStatus] = useState<"loading" | "success" | "error">(
-        "loading",
-    );
-    const [showAll, setShowAll] = useState(false);
+export default function ProjectsSection({
+  onOpenProject,
+}: ProjectsSectionProps) {
+  const [projects, setProjects] = useState<ProjectDTO[]>([]);
+  const [status, setStatus] = useState<"loading" | "success">("loading");
+  const [showAll, setShowAll] = useState(false);
 
-    useEffect(() => {
-        let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-        fetch(`${API_BASE}/api/v1/projects`, {
-            headers: { Accept: "application/json" },
-        })
-            .then((res) => {
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                return res.json() as Promise<ProjectDTO[]>;
-            })
-            .then((data) => {
-                if (isMounted) {
-                    const sorted = [...data].sort(
-                        (a, b) =>
-                            (a.display_order ?? 0) - (b.display_order ?? 0),
-                    );
-                    setProjects(sorted);
-                    setStatus("success");
-                }
-            })
-            .catch((err) => {
-                if (isMounted) {
-                    console.error("[ProjectsSection]", err);
-                    setStatus("error");
-                }
-            });
+    fetchProjectsData().then((list) => {
+      if (isMounted) {
+        setProjects(list);
+        setStatus("success");
+      }
+    });
 
-        return () => {
-            isMounted = false;
-        };
-    }, []);
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
-    return (
-        <section
-            id="projects"
-            className="relative w-full bg-[#0a0a0a] text-[#e5e7eb] py-24 px-6 md:px-12 lg:px-20 border-t border-zinc-800/40 overflow-hidden"
+  const displayedProjects = showAll
+    ? projects
+    : projects.slice(0, INITIAL_DISPLAY_COUNT);
+
+  return (
+    <section
+      id="projects"
+      className="flex flex-col gap-6 transition-colors duration-200"
+    >
+      {/* Section Header */}
+      <div className="bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="flex flex-col gap-1">
+          <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            Selected Work
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
+            Projects
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Production APIs, payment integrations, and cloud-backed
+            applications.
+          </p>
+        </div>
+
+        <a
+          href="https://github.com/FarhanDH"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-xs font-medium text-foreground bg-secondary hover:bg-accent hover:border-foreground/40 hover:scale-[1.03] active:scale-[0.97] border border-border transition-all duration-200 cursor-pointer shadow-2xs self-start sm:self-auto"
         >
-            {/* Very faint dot-grid */}
-            <div
-                className="pointer-events-none absolute inset-0 opacity-[0.018]"
-                style={{
-                    backgroundImage:
-                        "radial-gradient(circle, #ffffff 1px, transparent 1px)",
-                    backgroundSize: "28px 28px",
-                }}
-            />
+          <Github size={14} />
+          <span>github.com/FarhanDH</span>
+          <ExternalLink size={12} />
+        </a>
+      </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto">
-                {/* Section header */}
-                <AnimatedContent direction="vertical" distance={24} delay={0}>
-                    <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-12">
-                        <div className="flex flex-col gap-2">
-                            <span className="font-mono text-xs font-semibold tracking-wider uppercase text-[#22c55e] flex items-center gap-1.5">
-                                <span className="text-zinc-600">~/</span>
-                                projects
-                            </span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                                What I've Built
-                            </h2>
-                            <p className="text-sm text-zinc-500 max-w-sm mt-0.5">
-                                Backend systems, APIs, and infrastructure tools
-                                I've shipped.
-                            </p>
-                        </div>
+      {/* Loading Skeletons */}
+      {status === "loading" && (
+        <div className="flex flex-col gap-6">
+          {[...Array(2)].map((_, i) => (
+            <ProjectSkeleton key={i} />
+          ))}
+        </div>
+      )}
 
-                        <Magnet magnetStrength={0.2} padding={35}>
-                            <a
-                                href="https://github.com/FarhanDH"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                id="view-all-github"
-                                className="flex items-center gap-2 px-4 py-2.5 rounded-lg font-mono text-xs text-zinc-400 hover:text-zinc-200 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 whitespace-nowrap cursor-pointer"
-                            >
-                                <Github size={13} />
-                                github.com/FarhanDH
-                                <ExternalLink
-                                    size={10}
-                                    className="opacity-40"
-                                />
-                            </a>
-                        </Magnet>
-                    </div>
-                </AnimatedContent>
+      {/* Horizontal Projects Showcase List */}
+      {status === "success" && (
+        <>
+          <div className="flex flex-col gap-6">
+            {displayedProjects.map((project) => (
+              <ProjectShowcaseCard
+                key={project.id}
+                project={project}
+                onOpenProject={onOpenProject}
+              />
+            ))}
+          </div>
 
-                {/* Terminal chrome header — echoes Hero window */}
-                <AnimatedContent
-                    direction="vertical"
-                    distance={16}
-                    delay={0.05}
-                >
-                    <div className="flex items-center gap-2 mb-4 px-1">
-                        <Terminal size={12} className="text-zinc-700" />
-                        <span className="font-mono text-[11px] text-zinc-700 select-none">
-                            ls -la ~/projects
-                        </span>
-                        <div className="flex-1 h-px bg-zinc-900" />
-                        <span className="font-mono text-[11px] text-zinc-700 select-none">
-                            {status === "loading"
-                                ? "fetching..."
-                                : `${projects.length} entries`}
-                        </span>
-                    </div>
-                </AnimatedContent>
-
-                {/* ── Loading state ── */}
-                {status === "loading" && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {[...Array(3)].map((_, i) => (
-                            <ProjectSkeleton key={i} />
-                        ))}
-                    </div>
-                )}
-
-                {/* ── Error state ── */}
-                {status === "error" && (
-                    <div className="flex flex-col items-center gap-3 py-16 text-center">
-                        <span className="font-mono text-sm text-zinc-600">
-                            <span className="text-red-500/70">✗</span> failed to
-                            fetch projects
-                        </span>
-                        <button
-                            onClick={() => {
-                                setStatus("loading");
-                                setProjects([]);
-                                window.location.reload();
-                            }}
-                            className="font-mono text-xs text-zinc-600 hover:text-zinc-300 border border-zinc-800 hover:border-zinc-700 px-4 py-2 rounded-lg transition-all duration-200 mt-1 cursor-pointer"
-                        >
-                            retry
-                        </button>
-                    </div>
-                )}
-
-                {/* ── Empty state ── */}
-                {status === "success" && projects.length === 0 && (
-                    <p className="font-mono text-sm text-zinc-600 py-12 text-center">
-                        No projects found.
-                    </p>
-                )}
-
-                {/* ── Projects grid ── */}
-                {status === "success" && projects.length > 0 && (
-                    <>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {(showAll
-                                ? projects
-                                : projects.slice(0, INITIAL_DISPLAY_COUNT)
-                            ).map((project, idx) => (
-                                <ProjectCard
-                                    key={project.id}
-                                    project={project}
-                                    index={idx}
-                                    delay={0.04 * idx}
-                                />
-                            ))}
-                        </div>
-
-                        {/* ── View more / View less button ── */}
-                        {projects.length > INITIAL_DISPLAY_COUNT && (
-                            <div className="flex justify-center mt-8">
-                                <button
-                                    onClick={() => setShowAll((prev) => !prev)}
-                                    className="group flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-xs text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(34,197,94,0.1)]"
-                                >
-                                    {/* <span className="text-[#22c55e]">$</span> */}
-                                    <span>
-                                        {showAll
-                                            ? "show less"
-                                            : `view more (+${projects.length - INITIAL_DISPLAY_COUNT})`}
-                                    </span>
-                                    <ChevronDown
-                                        size={14}
-                                        className={`text-zinc-500 group-hover:text-zinc-300 transition-transform duration-300 ${
-                                            showAll ? "rotate-180" : ""
-                                        }`}
-                                    />
-                                </button>
-                            </div>
-                        )}
-                    </>
-                )}
+          {projects.length > INITIAL_DISPLAY_COUNT && (
+            <div className="flex justify-center mt-2">
+              <button
+                onClick={() => setShowAll((prev) => !prev)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-foreground bg-card hover:bg-accent hover:border-foreground/40 hover:scale-[1.02] active:scale-[0.98] border border-border transition-all duration-200 cursor-pointer shadow-2xs"
+              >
+                <span>
+                  {showAll
+                    ? "Show fewer projects"
+                    : `View more projects (+${projects.length - INITIAL_DISPLAY_COUNT})`}
+                </span>
+                <ChevronDown
+                  size={15}
+                  className={`transition-transform duration-200 ${
+                    showAll ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
             </div>
-        </section>
-    );
+          )}
+        </>
+      )}
+    </section>
+  );
 }

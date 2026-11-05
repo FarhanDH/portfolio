@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" width="1100" height="620" fill="none">
+  <!-- Background -->
+  <rect width="1100" height="620" rx="16" fill="#f8fafc"/>
+  <rect x="16" y="16" width="1068" height="588" rx="12" fill="#ffffff" stroke="#1e293b" stroke-width="2.5"/>
+
+  <!-- Arrow Marker -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#1e293b"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="550" y="56" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#0f172a" text-anchor="middle">SiDingin — High-Level System Architecture</text>
+
+  <!-- RBAC Auth Box (Top Left) -->
+  <rect x="150" y="92" width="230" height="84" rx="10" fill="#fef3c7" stroke="#1e293b" stroke-width="2"/>
+  <text x="265" y="130" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="middle">JWT &amp; RBAC Guard</text>
+  <text x="265" y="154" font-family="JetBrains Mono, monospace" font-size="12" fill="#334155" text-anchor="middle">(Customer &amp; Technician)</text>
+
+  <!-- PWA Client Box (Left) -->
+  <rect x="70" y="250" width="190" height="140" rx="12" fill="#dbeafe" stroke="#1e293b" stroke-width="2"/>
+  <rect x="142" y="274" width="46" height="72" rx="6" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+  <line x1="156" y1="336" x2="174" y2="336" stroke="#1e293b" stroke-width="2"/>
+  <text x="165" y="420" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="middle">PWA Client App</text>
+  <text x="165" y="442" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#475569" text-anchor="middle">(Customer &amp; Tech)</text>
+
+  <!-- Cloud Host Container (Center) -->
+  <rect x="400" y="180" width="280" height="270" rx="14" fill="#e2e8f0" stroke="#1e293b" stroke-width="2"/>
+  <text x="656" y="212" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#0f172a" text-anchor="end">Cloud Runtime</text>
+
+  <rect x="445" y="265" width="190" height="100" rx="10" fill="#dcfce7" stroke="#1e293b" stroke-width="2"/>
+  <text x="540" y="312" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="middle">SiDingin API</text>
+  <text x="540" y="338" font-family="JetBrains Mono, monospace" font-size="12" fill="#334155" text-anchor="middle">NestJS + TypeORM</text>
+
+  <!-- PostgreSQL Box (Top Right) -->
+  <rect x="810" y="80" width="210" height="120" rx="12" fill="#f3e8ff" stroke="#1e293b" stroke-width="2"/>
+  <ellipse cx="915" cy="116" rx="28" ry="10" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+  <path d="M 887 116 V 156 C 887 162 943 162 943 156 V 116" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+  <ellipse cx="915" cy="116" rx="28" ry="10" fill="#e9d5ff" stroke="#1e293b" stroke-width="2"/>
+  <text x="915" y="186" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">PostgreSQL DB</text>
+  <text x="915" y="220" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#334155" text-anchor="middle">(Orders, Users, Status)</text>
+
+  <!-- Midtrans Payment Gateway (Middle Right) -->
+  <rect x="810" y="250" width="210" height="115" rx="12" fill="#ffedd5" stroke="#1e293b" stroke-width="2"/>
+  <rect x="880" y="274" width="70" height="44" rx="6" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+  <line x1="880" y1="288" x2="950" y2="288" stroke="#1e293b" stroke-width="3"/>
+  <text x="915" y="346" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">Midtrans Gateway</text>
+  <text x="915" y="385" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#334155" text-anchor="middle">(QRIS, VA &amp; Webhooks)</text>
+
+  <!-- OpenStreetMap & Push Notifications (Bottom Right) -->
+  <rect x="810" y="420" width="210" height="130" rx="12" fill="#e0f2fe" stroke="#1e293b" stroke-width="2"/>
+  <text x="915" y="462" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">OpenStreetMap API</text>
+  <text x="915" y="486" font-family="JetBrains Mono, monospace" font-size="12" fill="#334155" text-anchor="middle">&amp; Push Notifications</text>
+  <text x="915" y="518" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#475569" text-anchor="middle">(Geo-Matching &amp; Alerts)</text>
+
+  <!-- Connector Arrows -->
+  <line x1="185" y1="250" x2="235" y2="180" stroke="#1e293b" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <line x1="260" y1="315" x2="440" y2="315" stroke="#1e293b" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="350" y="303" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">HTTPS / REST</text>
+
+  <line x1="635" y1="290" x2="804" y2="155" stroke="#1e293b" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <line x1="635" y1="315" x2="804" y2="310" stroke="#1e293b" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <line x1="635" y1="340" x2="804" y2="465" stroke="#1e293b" stroke-width="2.2" marker-end="url(#arrow)"/>
+</svg>

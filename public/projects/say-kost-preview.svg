@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" fill="none">
+  <defs>
+    <linearGradient id="bgKost" x1="0" y1="0" x2="1200" y2="750" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#bgKost)"/>
+
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="220" height="750" fill="#0b1120"/>
+  <line x1="220" y1="0" x2="220" y2="750" stroke="#334155" stroke-width="1.5"/>
+
+  <rect x="28" y="28" width="36" height="36" rx="10" fill="#f8fafc"/>
+  <text x="46" y="52" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="800" fill="#0f172a" text-anchor="middle">K</text>
+  <text x="78" y="47" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#f8fafc">Say-Kost</text>
+  <text x="78" y="63" font-family="JetBrains Mono, monospace" font-size="10" fill="#94a3b8">BOARDING MANAGER</text>
+
+  <rect x="20" y="96" width="180" height="42" rx="10" fill="#1e293b" stroke="#475569"/>
+  <circle cx="44" cy="117" r="5" fill="#10b981"/>
+  <text x="62" y="122" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">Room Inventory</text>
+  <text x="62" y="172" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">Reservations</text>
+  <text x="62" y="216" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">Tenant Directory</text>
+  <text x="62" y="260" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">Transactions</text>
+  <text x="62" y="304" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">Admin RBAC</text>
+
+  <!-- Header -->
+  <rect x="221" y="0" width="979" height="76" fill="#0f172a"/>
+  <line x1="220" y1="76" x2="1200" y2="76" stroke="#334155" stroke-width="1.5"/>
+  <text x="260" y="45" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">Boarding House Property &amp; Booking Portal</text>
+  <rect x="945" y="22" width="215" height="32" rx="16" fill="#1e293b" stroke="#334155"/>
+  <circle cx="967" cy="38" r="5" fill="#10b981"/>
+  <text x="981" y="42" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="#f8fafc">Java + Express + MySQL</text>
+
+  <!-- 3 Summary Cards -->
+  <rect x="260" y="104" width="286" height="108" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="284" y="134" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">OCCUPANCY RATE</text>
+  <text x="284" y="168" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="#f8fafc">92% (23 / 25 Rooms)</text>
+  <text x="284" y="192" font-family="JetBrains Mono, monospace" font-size="11" fill="#10b981">2 Deluxe Units Available</text>
+
+  <rect x="566" y="104" width="286" height="108" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="590" y="134" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">MONTHLY REVENUE</text>
+  <text x="590" y="168" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="#f8fafc">Rp 27.600.000</text>
+  <text x="590" y="192" font-family="JetBrains Mono, monospace" font-size="11" fill="#cbd5e1">Verified Customer Ledger</text>
+
+  <rect x="872" y="104" width="288" height="108" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="896" y="134" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">ACTIVE RESERVATIONS</text>
+  <text x="896" y="168" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="#f8fafc">14 Bookings</text>
+  <text x="896" y="192" font-family="JetBrains Mono, monospace" font-size="11" fill="#10b981">Admin &amp; Customer RBAC</text>
+
+  <!-- Room Grid Visual -->
+  <rect x="260" y="236" width="900" height="476" rx="16" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="288" y="274" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#f8fafc">Unit Availability &amp; Customer Reservation Ledger</text>
+  <line x1="288" y1="294" x2="1132" y2="294" stroke="#334155"/>
+
+  <!-- Room Cards inside Panel -->
+  <rect x="288" y="318" width="266" height="164" rx="12" fill="#0f172a" stroke="#334155"/>
+  <text x="310" y="348" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" fill="#f8fafc">UNIT A-101 · DELUXE AC</text>
+  <text x="310" y="374" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#f8fafc">Rp 1.450.000 / mo</text>
+  <text x="310" y="400" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#94a3b8">Wi-Fi · En-suite Bath · AC</text>
+  <rect x="310" y="432" width="110" height="28" rx="8" fill="#1e293b" stroke="#10b981"/>
+  <text x="365" y="450" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#10b981" text-anchor="middle">AVAILABLE</text>
+
+  <rect x="577" y="318" width="266" height="164" rx="12" fill="#0f172a" stroke="#334155"/>
+  <text x="599" y="348" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" fill="#f8fafc">UNIT A-102 · DELUXE AC</text>
+  <text x="599" y="374" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#f8fafc">Rp 1.450.000 / mo</text>
+  <text x="599" y="400" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#94a3b8">Tenant: R. Pratama (Paid)</text>
+  <rect x="599" y="432" width="110" height="28" rx="8" fill="#1e293b" stroke="#475569"/>
+  <text x="654" y="450" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#cbd5e1" text-anchor="middle">OCCUPIED</text>
+
+  <rect x="866" y="318" width="266" height="164" rx="12" fill="#0f172a" stroke="#334155"/>
+  <text x="888" y="348" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" fill="#f8fafc">UNIT B-201 · STANDARD</text>
+  <text x="888" y="374" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#f8fafc">Rp 950.000 / mo</text>
+  <text x="888" y="400" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#94a3b8">Tenant: D. Kurniawan (Paid)</text>
+  <rect x="888" y="432" width="110" height="28" rx="8" fill="#1e293b" stroke="#475569"/>
+  <text x="943" y="450" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#cbd5e1" text-anchor="middle">OCCUPIED</text>
+
+  <!-- Recent Transactions Row -->
+  <rect x="288" y="508" width="844" height="176" rx="12" fill="#0f172a" stroke="#334155"/>
+  <text x="312" y="540" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" fill="#f8fafc">RECENT RESERVATION TRANSACTIONS (MySQL + Express.js)</text>
+  <line x1="312" y1="556" x2="1108" y2="556" stroke="#334155"/>
+  <text x="312" y="588" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8fafc">TRX-2024-091</text>
+  <text x="460" y="588" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#cbd5e1">Unit A-102 · Monthly Renewal</text>
+  <text x="780" y="588" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8fafc">Rp 1.450.000</text>
+  <text x="980" y="588" font-family="JetBrains Mono, monospace" font-size="12" fill="#10b981">VERIFIED</text>
+
+  <text x="312" y="632" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8fafc">TRX-2024-090</text>
+  <text x="460" y="632" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#cbd5e1">Unit B-201 · New Reservation</text>
+  <text x="780" y="632" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8fafc">Rp 950.000</text>
+  <text x="980" y="632" font-family="JetBrains Mono, monospace" font-size="12" fill="#10b981">VERIFIED</text>
+</svg>

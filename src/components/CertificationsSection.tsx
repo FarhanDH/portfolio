@@ -1,24 +1,13 @@
 import { useEffect, useState } from "react";
-import AnimatedContent from "./AnimatedContent";
-import { ExternalLink, ShieldCheck, ChevronDown } from "lucide-react";
-
-// ── API response shape (snake_case from Go API) ───────────────────────────────
-interface CertificationDTO {
-    id: string;
-    name: string;
-    issuer: string;
-    issuer_logo: string | null;
-    issued_date: string; // e.g. "2023-11"
-    expiry_date: string | null;
-    credential_id: string | null;
-    credential_url: string | null;
-    skills: string[];
-}
+import { ExternalLink, ShieldCheck, ChevronDown, Calendar } from "lucide-react";
+import {
+    type CertificationDTO,
+    FALLBACK_CERTIFICATIONS,
+} from "../data/certificationsData";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL as string;
 const INITIAL_DISPLAY_COUNT = 4;
 
-// Format "2023-11" → "Nov 2023"
 function formatDate(raw: string | null): string | null {
     if (!raw) return null;
     const [year, month] = raw.split("-");
@@ -30,63 +19,50 @@ function formatDate(raw: string | null): string | null {
     });
 }
 
-// ── Loading skeleton card ─────────────────────────────────────────────────────
 function SkeletonCard() {
     return (
-        <div className="flex flex-col gap-4 p-5 rounded-xl border border-zinc-800/70 bg-zinc-950 animate-pulse">
+        <div className="flex flex-col gap-4 p-5 rounded-xl border border-border bg-secondary animate-pulse">
             <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-11 h-11 rounded-lg bg-zinc-900 border border-zinc-800" />
+                <div className="flex-shrink-0 w-11 h-11 rounded-lg bg-border" />
                 <div className="flex flex-col gap-2 flex-1">
-                    <div className="h-3.5 bg-zinc-800 rounded w-3/4" />
-                    <div className="h-3 bg-zinc-900 rounded w-1/2" />
+                    <div className="h-4 bg-border rounded w-3/4" />
+                    <div className="h-3 bg-border/70 rounded w-1/2" />
                 </div>
-            </div>
-            <div className="flex gap-3">
-                <div className="h-3 bg-zinc-900 rounded w-24" />
-                <div className="h-3 bg-zinc-900 rounded w-20" />
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-                {[60, 80, 50, 70].map((w) => (
-                    <div
-                        key={w}
-                        className="h-5 bg-zinc-900 rounded"
-                        style={{ width: w }}
-                    />
-                ))}
             </div>
         </div>
     );
 }
 
-// ── Issuer logo: real image if URL, abbrev text fallback ──────────────────────
 function IssuerLogo({ url, name }: { url: string | null; name: string }) {
     const [imgFailed, setImgFailed] = useState(false);
-    const abbrev = name.slice(0, 3).toUpperCase();
+    const abbrev = name
+        .split(" ")
+        .map((w) => w[0])
+        .join("")
+        .slice(0, 3)
+        .toUpperCase();
 
     if (url && !imgFailed) {
         return (
             <img
                 src={url}
                 alt={name}
-                className="w-20 object-contain"
+                className="w-full h-full object-contain p-1"
                 onError={() => setImgFailed(true)}
             />
         );
     }
 
     return (
-        <span className="font-mono text-[10px] font-bold text-zinc-500 group-hover:text-zinc-400 transition-colors tracking-tight">
+        <span className="font-mono text-xs font-bold text-foreground tracking-tight">
             {abbrev}
         </span>
     );
 }
 
-// ── Main section ──────────────────────────────────────────────────────────────
 export default function CertificationsSection() {
     const [certs, setCerts] = useState<CertificationDTO[]>([]);
-    const [status, setStatus] = useState<"loading" | "success" | "error">(
-        "loading",
-    );
+    const [status, setStatus] = useState<"loading" | "success">("loading");
     const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
@@ -101,14 +77,16 @@ export default function CertificationsSection() {
             })
             .then((data) => {
                 if (isMounted) {
-                    setCerts(data);
+                    setCerts(
+                        data.length > 0 ? data : FALLBACK_CERTIFICATIONS,
+                    );
                     setStatus("success");
                 }
             })
-            .catch((err) => {
+            .catch(() => {
                 if (isMounted) {
-                    console.error("[CertificationsSection]", err);
-                    setStatus("error");
+                    setCerts(FALLBACK_CERTIFICATIONS);
+                    setStatus("success");
                 }
             });
 
@@ -124,180 +102,140 @@ export default function CertificationsSection() {
     return (
         <section
             id="certifications"
-            className="relative w-full bg-[#0a0a0a] text-[#e5e7eb] py-24 px-6 md:px-12 lg:px-20 border-t border-zinc-800/40"
+            className="bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-xs transition-colors duration-200"
         >
-            <div className="max-w-7xl mx-auto">
-                {/* Section header */}
-                <AnimatedContent direction="vertical" distance={24} delay={0}>
-                    <div className="flex flex-col gap-2 mb-12">
-                        <span className="font-mono text-xs font-semibold tracking-wider uppercase text-[#22c55e] flex items-center gap-1.5">
-                            <span className="text-zinc-600">~/</span>
-                            certifications
-                        </span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                            Certifications
-                        </h2>
-                        <p className="text-sm text-zinc-500 mt-0.5">
-                            Credentials and courses I've completed.
-                        </p>
-                    </div>
-                </AnimatedContent>
+            {/* Header */}
+            <div className="flex flex-col gap-1 mb-6 pb-4 border-b border-border">
+                <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                    Verified Credentials
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
+                    Certifications
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                    Technical certifications and cloud training programs I have
+                    completed.
+                </p>
+            </div>
 
-                {/* ── Loading state ── */}
-                {status === "loading" && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {[...Array(4)].map((_, i) => (
-                            <SkeletonCard key={i} />
-                        ))}
-                    </div>
-                )}
+            {status === "loading" && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, i) => (
+                        <SkeletonCard key={i} />
+                    ))}
+                </div>
+            )}
 
-                {/* ── Error state ── */}
-                {status === "error" && (
-                    <div className="flex flex-col items-center gap-3 py-16 text-center">
-                        <span className="font-mono text-sm text-zinc-600">
-                            <span className="text-red-500/70">✗</span> failed to
-                            fetch certifications
-                        </span>
-                        <button
-                            onClick={() => {
-                                setStatus("loading");
-                                setCerts([]);
-                                window.location.reload();
-                            }}
-                            className="font-mono text-xs text-zinc-600 hover:text-zinc-300 border border-zinc-800 hover:border-zinc-700 px-4 py-2 rounded-lg transition-all duration-200 mt-1 cursor-pointer"
-                        >
-                            retry
-                        </button>
-                    </div>
-                )}
+            {status === "success" && (
+                <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {displayedCerts.map((cert) => {
+                            const issued = formatDate(cert.issued_date);
+                            const expires = formatDate(cert.expiry_date);
 
-                {/* ── Empty state ── */}
-                {status === "success" && certs.length === 0 && (
-                    <p className="font-mono text-sm text-zinc-600 py-12 text-center">
-                        No certifications found.
-                    </p>
-                )}
-
-                {/* ── Cert grid ── */}
-                {status === "success" && certs.length > 0 && (
-                    <>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {displayedCerts.map((cert, idx) => {
-                                const issued = formatDate(cert.issued_date);
-                                const expires = formatDate(cert.expiry_date);
-
-                                return (
-                                    <AnimatedContent
-                                        key={cert.id}
-                                        direction="vertical"
-                                        distance={24}
-                                        delay={0.07 * idx}
-                                    >
-                                        <div className="group flex flex-col gap-4 p-5 rounded-xl border border-zinc-800/70 bg-zinc-950 hover:border-zinc-700/70 transition-colors duration-300 h-full">
-                                            {/* Header: logo + name + issuer + shield */}
-                                            <div className="flex items-start gap-4">
-                                                <div className="flex-shrink-0 w-11 h-11 rounded-lg border border-zinc-800 bg-zinc-900 flex items-center justify-center group-hover:border-zinc-700 transition-colors duration-200 overflow-hidden bg-white">
-                                                    <IssuerLogo
-                                                        url={cert.issuer_logo}
-                                                        name={cert.issuer}
-                                                    />
-                                                </div>
-
-                                                <div className="flex flex-col gap-0.5 flex-1 min-w-0">
-                                                    <h3 className="text-sm font-semibold text-zinc-100 leading-snug">
-                                                        {cert.name}
-                                                    </h3>
-                                                    <span className="text-xs text-zinc-500">
-                                                        {cert.issuer}
-                                                    </span>
-                                                </div>
-
-                                                <ShieldCheck
-                                                    size={15}
-                                                    className="flex-shrink-0 text-zinc-700 group-hover:text-[#22c55e]/50 transition-colors duration-300 mt-0.5"
+                            return (
+                                <div
+                                    key={cert.id}
+                                    className="flex flex-col justify-between gap-4 p-5 rounded-xl border border-border bg-secondary h-full"
+                                >
+                                    <div className="flex flex-col gap-3.5">
+                                        {/* Header: Logo + Name + Issuer */}
+                                        <div className="flex items-start gap-3.5">
+                                            <div className="flex-shrink-0 w-11 h-11 rounded-xl border border-border bg-card flex items-center justify-center overflow-hidden">
+                                                <IssuerLogo
+                                                    url={cert.issuer_logo}
+                                                    name={cert.issuer}
                                                 />
                                             </div>
 
-                                            {/* Dates + credential ID */}
-                                            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                                                {issued && (
-                                                    <span className="font-mono text-[11px] text-zinc-500">
-                                                        Issued {issued}
-                                                    </span>
-                                                )}
-                                                {expires ? (
-                                                    <span className="font-mono text-[11px] text-zinc-500">
-                                                        Expires {expires}
-                                                    </span>
-                                                ) : (
-                                                    <span className="font-mono text-[11px] text-zinc-500">
-                                                        Expires -
-                                                    </span>
-                                                )}
-                                                {cert.credential_id && (
-                                                    <span className="font-mono text-[11px] text-zinc-600 truncate">
-                                                        ID: {cert.credential_id}
-                                                    </span>
-                                                )}
+                                            <div className="flex flex-col gap-0.5 flex-1 min-w-0">
+                                                <h3 className="text-sm sm:text-base font-bold text-foreground leading-snug">
+                                                    {cert.name}
+                                                </h3>
+                                                <span className="text-xs font-medium text-muted-foreground">
+                                                    {cert.issuer}
+                                                </span>
                                             </div>
 
-                                            {/* Skills */}
-                                            <div className="flex flex-wrap gap-1.5 flex-1 content-start">
-                                                {cert.skills.map((s) => (
-                                                    <span
-                                                        key={s}
-                                                        className="font-mono px-2 py-0.5 rounded text-[11px] bg-zinc-900 border border-zinc-800 text-zinc-500 group-hover:border-zinc-700 group-hover:text-zinc-300 transition-colors duration-200"
-                                                    >
-                                                        {s}
-                                                    </span>
-                                                ))}
-                                            </div>
+                                            <ShieldCheck
+                                                size={18}
+                                                className="flex-shrink-0 text-muted-foreground mt-0.5"
+                                            />
+                                        </div>
 
-                                            {/* Credential link */}
-                                            <div className="border-t border-zinc-800/50"></div>
-                                            {cert.credential_url && (
-                                                <a
-                                                    href={cert.credential_url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="flex justify-end text-end self-end items-center gap-1.5 font-mono text-[11px] text-zinc-300 hover:bg-[#22c55e]/60 transition-colors duration-200 border p-2 w-fit rounded-sm cursor-pointer"
-                                                >
-                                                    <ExternalLink size={11} />
-                                                    View credential
-                                                </a>
+                                        {/* Dates + Credential ID */}
+                                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-mono text-muted-foreground">
+                                            {issued && (
+                                                <span className="inline-flex items-center gap-1 text-foreground">
+                                                    <Calendar size={11} />
+                                                    Issued {issued}
+                                                </span>
+                                            )}
+                                            <span>
+                                                {expires
+                                                    ? `Expires ${expires}`
+                                                    : "No Expiry"}
+                                            </span>
+                                            {cert.credential_id && (
+                                                <span className="truncate">
+                                                    ID: {cert.credential_id}
+                                                </span>
                                             )}
                                         </div>
-                                    </AnimatedContent>
-                                );
-                            })}
-                        </div>
 
-                        {/* ── View more / View less button ── */}
-                        {certs.length > INITIAL_DISPLAY_COUNT && (
-                            <div className="flex justify-center mt-8">
-                                <button
-                                    onClick={() => setShowAll((prev) => !prev)}
-                                    className="group flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-xs text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(34,197,94,0.1)]"
-                                >
-                                    {/* <span className="text-[#22c55e]">$</span> */}
-                                    <span>
-                                        {showAll
-                                            ? "show less"
-                                            : `view more (+${certs.length - INITIAL_DISPLAY_COUNT})`}
-                                    </span>
-                                    <ChevronDown
-                                        size={14}
-                                        className={`text-zinc-500 group-hover:text-zinc-300 transition-transform duration-300 ${
-                                            showAll ? "rotate-180" : ""
-                                        }`}
-                                    />
-                                </button>
-                            </div>
-                        )}
-                    </>
-                )}
-            </div>
+                                        {/* Skills */}
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {cert.skills.map((s) => (
+                                                <span
+                                                    key={s}
+                                                    className="font-mono px-2.5 py-0.5 rounded-md text-[11px] bg-card border border-border text-foreground"
+                                                >
+                                                    {s}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {cert.credential_url && (
+                                        <div className="pt-3 border-t border-border flex justify-end">
+                                            <a
+                                                href={cert.credential_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-card hover:bg-accent hover:border-foreground/40 hover:scale-[1.02] active:scale-[0.98] text-foreground border border-border transition-all duration-200 cursor-pointer shadow-2xs"
+                                            >
+                                                <ExternalLink size={12} />
+                                                <span>Verify Credential</span>
+                                            </a>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {certs.length > INITIAL_DISPLAY_COUNT && (
+                        <div className="flex justify-center mt-6">
+                            <button
+                                onClick={() => setShowAll((prev) => !prev)}
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-foreground bg-secondary hover:bg-accent hover:border-foreground/40 hover:scale-[1.02] active:scale-[0.98] border border-border transition-all duration-200 cursor-pointer shadow-2xs"
+                            >
+                                <span>
+                                    {showAll
+                                        ? "Show fewer certifications"
+                                        : `View more certifications (+${certs.length - INITIAL_DISPLAY_COUNT})`}
+                                </span>
+                                <ChevronDown
+                                    size={15}
+                                    className={`transition-transform duration-200 ${
+                                        showAll ? "rotate-180" : ""
+                                    }`}
+                                />
+                            </button>
+                        </div>
+                    )}
+                </>
+            )}
         </section>
     );
 }
