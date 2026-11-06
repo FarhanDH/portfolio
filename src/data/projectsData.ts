@@ -75,8 +75,7 @@ export const FALLBACK_PROJECTS: ProjectDTO[] = [
     responsibilities: [
       "Designed and built the core RESTful backend service using NestJS, TypeScript, and TypeORM.",
       "Implemented Role-Based Access Control (RBAC) separating Customer booking permissions from Technician dispatch workflows.",
-      "Integrated Midtrans Payment Gateway supporting QRIS, Virtual Accounts, and E-Wallets with webhook verification.",
-      "Built location-based technician matching and distance calculation using the OpenStreetMap API.",
+      "Integrated Midtrans Payment Gateway supporting QRIS, dan Virtual Accounts with webhook verification.",
       "Configured real-time push notifications to alert customers and technicians on every order state change.",
     ],
     architecture:
@@ -99,21 +98,14 @@ export const FALLBACK_PROJECTS: ProjectDTO[] = [
         description:
           "Enforced strict state transitions (Pending → Confirmed → Technician Dispatched → In Progress → Completed / Cancelled) so neither customers nor technicians can mutate an order into an invalid state.",
       },
-      {
-        title: "Geospatial Technician Matching with OpenStreetMap",
-        description:
-          "Used OpenStreetMap geocoding and coordinate distance calculations to pair incoming service requests with available technicians within the customer's service radius.",
-      },
     ],
     operations: [
-      "Deployed backend services on cloud infrastructure with environment-isolated configuration and secrets management.",
       "Secured endpoints using JWT bearer authentication, bcrypt password hashing, and strict DTO payload validation (`class-validator`).",
       "Logged payment webhook payloads and order status transitions for auditability and fast debugging.",
     ],
     results: [
       "Delivered a working end-to-end on-demand AC booking platform live at pwa-cdingin.vercel.app.",
-      "Supported multi-method digital payments (QRIS, Bank Transfer, E-Wallet) with zero duplicate transaction bugs during testing.",
-      "Reduced booking-to-dispatch coordination to a few clicks with automated technician matching and push notifications.",
+      "Supported multi-method digital payments (QRIS, Bank Transfer) with zero duplicate transaction bugs during testing.",
     ],
     lessons_learned: [
       "Adding a Redis caching layer for active technician coordinates would further reduce database reads during peak booking hours.",

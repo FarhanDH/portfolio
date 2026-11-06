@@ -20,10 +20,10 @@ export const FALLBACK_EXPERIENCES: ExperienceItem[] = [
     endDate: "May 2026",
     location: "Balikpapan, Indonesia · Remote",
     highlights: [
-      "Designed and maintained RESTful APIs serving 10k+ daily requests using NestJS and PostgreSQL.",
-      "Implemented a distributed background job system with BullMQ and Redis, reducing task latency.",
-      "Containerized services with Docker and set up CI/CD pipelines on Jenkins for automated deployment.",
-      "Collaborated with the frontend team to define API contracts and Swagger documentation standards.",
+      "Participated in revamping a system to a modern NestJS and Prisma ORM architecture, delivering 50+ RESTful API endpoints.",
+      "Containerized the application using Docker and established an automated CI/CD pipeline via Jenkins.",
+      "Collaborated with Mobile and Frontend teams, providing comprehensive API documentation.",
+      "Integrated asynchronous LLM features for project reviews using BullMQ and Redis.",
     ],
     tech: [
       "NestJS",
@@ -42,11 +42,12 @@ export const FALLBACK_EXPERIENCES: ExperienceItem[] = [
     type: "Apprenticeship",
     startDate: "Oct 2024",
     endDate: "Dec 2024",
-    location: "South Jakarta, Indonesia",
+    location: "South Jakarta, Indonesia · Remote",
     highlights: [
-      "Built user authentication and role-based access control modules using NestJS and TypeORM.",
-      "Integrated Midtrans Payment Gateway to process digital transactions reliably.",
-      "Provisioned and deployed the backend infrastructure utilizing Google Cloud Platform (GCP) services to ensure high availability.",
+      "Developed RESTful APIs for a restaurant POS system using NestJS, TypeORM, and PostgreSQL, covering menu management, orders, users, and transactions.",
+      "Implemented Role-Based Access Control (RBAC) authentication and authorization to manage access permissions between Cashier and Admin roles.",
+      "Integrated the Midtrans Payment Gateway to support digital payment transaction processing.",
+      "Set up and deployed the backend infrastructure on Google Cloud Platform (GCP), using Google App Engine, Cloud SQL, and Google Cloud Storage to support development agility and application availability.",
     ],
     tech: [
       "NestJS",
