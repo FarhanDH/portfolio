@@ -37,7 +37,7 @@ export const FALLBACK_EDUCATIONS: EducationItem[] = [
     institution: "Amazon Web Services Training and Certification",
     degree: "AWS re/Start Cohort",
     type: "Cloud Training Cohort",
-    startDate: "Feb 2026",
+    startDate: "Aug 2026",
     endDate: "Sep 2026",
     location: "Indonesia · Remote",
     highlights: [
@@ -63,7 +63,7 @@ export const FALLBACK_EDUCATIONS: EducationItem[] = [
     degree: "Bangkit Academy Cohort Specializing in Cloud Computing",
     type: "Kampus Merdeka (906 Hours · 20 SKS)",
     startDate: "Sep 2024",
-    endDate: "Jan 2025",
+    endDate: "Dec 2024",
     location: "Indonesia · Remote",
     highlights: [
       "Completed 906 hours of intensive training in the Bangkit Academy 2024 H2 Cloud Computing Learning Path, led by Google with support from GoTo, Tokopedia, Traveloka, and Dicoding Indonesia.",

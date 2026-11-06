@@ -52,7 +52,7 @@ export const FALLBACK_PROJECTS: ProjectDTO[] = [
     display_order: 10,
     title: "SiDingin",
     role: "Backend Developer",
-    timeline: "Oct 2024 – Dec 2024",
+    timeline: "Jul 2025 – Dec 2025",
     description:
       "API for booking Air Conditioner (AC) servicing, inspired by the Gojek application.",
     long_description:
@@ -118,7 +118,7 @@ export const FALLBACK_PROJECTS: ProjectDTO[] = [
     display_order: 20,
     title: "Silani API",
     role: "Backend Developer",
-    timeline: "2024 · Hackathon KMIPN VI",
+    timeline: "May 2024 - Jul 2024 · Hackathon KMIPN VI",
     description:
       "API developed to help novice farmers manage their fields and get AI-powered farming advice.",
     long_description:
@@ -184,7 +184,7 @@ export const FALLBACK_PROJECTS: ProjectDTO[] = [
     display_order: 30,
     title: "Chirp API",
     role: "Backend Developer",
-    timeline: "2024 · Collaborative Project",
+    timeline: "Dec 2023 - Jan 2024 · Collaborative Project",
     description:
       "Social media API inspired by X, built as a personal project with a friend.",
     long_description:
@@ -242,7 +242,7 @@ export const FALLBACK_PROJECTS: ProjectDTO[] = [
     display_order: 40,
     title: "Say-Kost App",
     role: "Backend Developer",
-    timeline: "2023 · Final Course Project",
+    timeline: "Apr 2024 - Oct 2024 · Final Course Project",
     description:
       "Desktop application for managing boarding houses, built as a final project for Interactive Multimedia Programming.",
     long_description:
