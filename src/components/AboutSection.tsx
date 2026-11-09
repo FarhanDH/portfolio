@@ -32,7 +32,7 @@ export default function AboutSection({ onNavigate }: AboutSectionProps) {
             01 / Overview
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
-            Engineering Profile
+            Profile
           </h2>
         </div>
 
