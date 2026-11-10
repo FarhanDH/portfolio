@@ -148,7 +148,7 @@ export default function AchievementsSection() {
             >
               {/* Top Meta & Title */}
               <div className="flex flex-col gap-1.5">
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex items-start justify-between gap-2">
                   <h3 className="text-base sm:text-lg font-bold text-foreground leading-snug">
                     {item.title}
                   </h3>
