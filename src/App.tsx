@@ -6,6 +6,7 @@ import ProjectsSection from "./components/ProjectsSection";
 import ProjectDetailPage from "./components/ProjectDetailPage";
 import ExperienceSection from "./components/ExperienceSection";
 import EducationSection from "./components/EducationSection";
+import AchievementsSection from "./components/AchievementsSection";
 import CertificationsSection from "./components/CertificationsSection";
 // import BlogSection from "./components/BlogSection";
 // import InfrastructureSection from "./components/InfrastructureSection";
@@ -16,6 +17,7 @@ const SECTIONS = [
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
+  { id: "achievements", label: "Achievements" },
   { id: "certifications", label: "Certifications" },
   // { id: "blog", label: "Engineering Notes" },
   // { id: "infrastructure", label: "Architecture" },
@@ -167,6 +169,7 @@ function App() {
                   )}
                   {activeSection === "experience" && <ExperienceSection />}
                   {activeSection === "education" && <EducationSection />}
+                  {activeSection === "achievements" && <AchievementsSection />}
                   {activeSection === "certifications" && (
                     <CertificationsSection />
                   )}
